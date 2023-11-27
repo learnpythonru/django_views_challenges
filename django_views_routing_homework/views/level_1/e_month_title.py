@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import HttpResponse, HttpResponseNotFound
 
 
@@ -14,9 +16,10 @@ from django.http import HttpResponse, HttpResponseNotFound
 
 
 def get_month_title_by_number(month_number: int):
-    months = ['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August', 'September', 'October', 'November', 'December']
-    return months[month_number-1]
+    time = datetime.datetime(2023, month_number, 1)
+    # months = ['January', 'February', 'March', 'April', 'May', 'June',
+    #           'July', 'August', 'September', 'October', 'November', 'December']
+    return time.strftime('%B') # months[month_number-1]
 
 
 def get_month_title_view(request, month_number: int):
