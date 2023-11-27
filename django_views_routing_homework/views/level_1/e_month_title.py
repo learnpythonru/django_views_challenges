@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound,  HttpRequest
 
 
 """
@@ -11,12 +11,14 @@ from django.http import HttpResponse, HttpResponseNotFound
     3. Добавьте путь в файле urls.py, чтобы при открытии http://127.0.0.1:8000/month-title/тут номер месяца/ 
        вызывалась вьюха get_month_title_view. Например http://127.0.0.1:8000/month-title/3/ 
 """
+MONTHS = {1: 'January', 2: 'Febriary', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August',9: 'September', 10: 'October', 11: 'November', 12: 'December'}
+
+def get_month_title_by_number(month_number: int) -> str | None:
+    return MONTHS.get(month_number)
 
 
-def get_month_title_by_number(month_number: int):
-    pass  # код писать тут
-
-
-def get_month_title_view(request, month_number: int):
-    # код писать тут
-    return HttpResponseNotFound('Месяца с таким номером не существует')
+def get_month_title_view(request: HttpRequest,month_number: int) -> HttpResponseNotFound | HttpResponse:
+    month_title = get_month_title_by_number(month_number)
+    if not month_title:
+        return HttpResponseNotFound(f'{month_number} not found')
+    return HttpResponse(month_title)
