@@ -37,7 +37,14 @@ PRODUCTS = [
 
 
 def get_products_view(request):
-    products = []
-    # код писать тут
+    # Get the value of the 'type' parameter from the request's GET parameters
+    product_type = request.GET.get('type')
+
+    # If 'type' parameter is present, filter products by type
+    if product_type:
+        products = [product for product in PRODUCTS if product['type'] == product_type]
+    else:
+        # If 'type' parameter is not present, return all products
+        products = PRODUCTS
 
     return JsonResponse(data=products, safe=False)
