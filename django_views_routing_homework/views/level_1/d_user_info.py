@@ -22,3 +22,9 @@ def get_user_info_view(request, user_id: int):
         return JsonResponse(data=USER_ID_TO_USER_INFO_MAPPER[user_id])
     else:
         return JsonResponse(data={'error': 'There is no user info'}, status=404)
+
+# http://127.0.0.1:8080/user-info/1/
+# {"username": "red_dev", "age": 34}
+
+# http://127.0.0.1:8080/user-info/5/
+# {"error": "There is no user info"}
