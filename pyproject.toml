@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "django-views-challenges"
+version = "0.1.0"
+description = ""
+authors = ["Octopulus96 <octopulus96@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10.6"
+django = "4.2.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
