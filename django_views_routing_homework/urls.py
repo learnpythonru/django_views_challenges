@@ -16,7 +16,6 @@ from django_views_routing_homework.views.level_3.a_user_ip import show_user_ip_v
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('welcome/', welcome_user_view),
-    path('bye/', bye_user_view),
     path('banned/<slug:username>/', is_username_banned_view),
     path('user-info-by-username/<int:username>/', get_user_info_by_username_view),
     path('products/', get_products_view),
@@ -26,5 +25,6 @@ urlpatterns = [
     path('user/validate/', validate_user_data_view),
     path('user/github/<slug:github_username>/full-name/', fetch_name_from_github_view),
     path('text/generate/', generate_file_with_text_view),
-    # добавлять пути тут
+    path('bye/', bye_user_view),
+
 ]
