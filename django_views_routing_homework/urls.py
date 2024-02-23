@@ -11,6 +11,7 @@ from django_views_routing_homework.views.level_3.c_github_full_name import fetch
 from django_views_routing_homework.views.level_3.d_file_generation import generate_file_with_text_view
 from django_views_routing_homework.views.level_1.b_bye_user import bye_user_view
 from django_views_routing_homework.views.level_1.d_user_info import get_user_info_view
+from django_views_routing_homework.views.level_1.e_month_title import get_month_title_view
 
 from django_views_routing_homework.views.level_3.a_user_ip import show_user_ip_view
 
@@ -27,5 +28,6 @@ urlpatterns = [
     path('user/github/<slug:github_username>/full-name/', fetch_name_from_github_view),
     path('text/generate/', generate_file_with_text_view),
     path('bye/', bye_user_view),
-    path('user-info/<int:user_id>/', get_user_info_view)
+    path('user-info/<int:user_id>/', get_user_info_view),
+    path('month-title/<int:month_number>/', get_month_title_view)
 ]

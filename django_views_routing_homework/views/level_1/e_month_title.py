@@ -12,11 +12,27 @@ from django.http import HttpResponse, HttpResponseNotFound
        вызывалась вьюха get_month_title_view. Например http://127.0.0.1:8000/month-title/3/ 
 """
 
-
-def get_month_title_by_number(month_number: int):
-    pass  # код писать тут
-
+def get_month_title_by_number(month_number: int) -> str | None:
+    months = {
+        1: "January",
+        2: "February",
+        3: "March",
+        4: "April",
+        5: "May",
+        6: "June",
+        7: "July",
+        8: "August",
+        9: "September",
+        10: "October",
+        11: "November",
+        12: "December"
+    }
+    return months.get(month_number)
 
 def get_month_title_view(request, month_number: int):
-    # код писать тут
-    return HttpResponseNotFound('Месяца с таким номером не существует')
+    month = get_month_title_by_number(month_number)
+    if month is None:
+        return HttpResponseNotFound('Месяца с таким номером не существует')
+    else:
+        return HttpResponse(f'{month}')
+
