@@ -33,6 +33,4 @@ def get_month_title_view(request, month_number: int):
     month = get_month_title_by_number(month_number)
     if month is None:
         return HttpResponseNotFound('Месяца с таким номером не существует')
-    else:
-        return HttpResponse(f'{month}')
-
+    return HttpResponse(month)

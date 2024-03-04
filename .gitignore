@@ -106,6 +106,3 @@ venv.bak/
 .idea
 
 .envrc
-
-# Poetry stuff
-poetry.lock
