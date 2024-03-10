@@ -9,4 +9,8 @@ from django.http import HttpResponse, HttpRequest
 
 
 def show_user_ip_view(request: HttpRequest) -> HttpResponse:
-    pass  # код писать тут
+    if 'HTTP_X_FORWARDED_FOR' in request.META:
+        ip = request.META['HTTP_X_FORWARDED_FOR']
+    else:
+        ip = request.META['REMOTE_ADDR']
+    return HttpResponse(f"Your IP address is: {ip}")

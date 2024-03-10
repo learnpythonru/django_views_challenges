@@ -14,8 +14,34 @@
 скачивать сгенерированный файл.
 """
 
+import string, random
 from django.http import HttpResponse, HttpRequest
 
 
 def generate_file_with_text_view(request: HttpRequest) -> HttpResponse:
-    pass  # код писать тут
+    # Получаем длину текста из GET-параметра 'length'
+    length = request.GET.get('length')
+    
+    # Проверяем, указан ли параметр 'length' и является ли он числом
+    if not length or not length.isdigit():
+        # Если параметр 'length' не указан или не является числом, возвращаем 403
+        return HttpResponse('Bad Request', status=403)
+    
+    # Преобразуем длину текста в целое число
+    length = int(length)
+    
+    # Проверяем, не слишком ли большой параметр 'length'
+    if length > 10000: # Примерное ограничение, можно установить любое другое
+        # Если длина слишком большая, возвращаем 403
+        return HttpResponse('Bad Request', status=403)
+    
+    # Генерируем случайный текст заданной длины
+    text = ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+    
+    # Создаем HttpResponse с текстом в качестве содержимого
+    response = HttpResponse(text, content_type='text/plain')
+    
+    # Устанавливаем заголовки для возвращения файла
+    response['Content-Disposition'] = 'attachment; filename="generated_text.txt"'
+    
+    return response

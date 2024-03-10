@@ -19,7 +19,32 @@
 """
 
 from django.http import HttpResponse, HttpRequest
+import json
+from django.http import HttpResponse, HttpResponseBadRequest
+from django import forms
 
+class UserForm(forms.Form):
+    full_name = forms.CharField(min_length=5, max_length=256)
+    email = forms.EmailField()
+    registered_from = forms.ChoiceField(choices=[('website', 'website'), ('mobile_app', 'mobile_app')])
+    age = forms.IntegerField(required=False)
 
 def validate_user_data_view(request: HttpRequest) -> HttpResponse:
-    pass  # код писать тут
+    try:
+        # Получение JSON из тела запроса
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        # Возвращаем Bad Request, если JSON невалидный
+        return HttpResponseBadRequest("Invalid JSON")
+
+    # Создание формы с полученными данными
+    form = UserForm(data)
+
+    # Проверка валидности данных
+    if form.is_valid():
+        # Если данные валидны, возвращаем статус 200 и {"is_valid": true}
+        return HttpResponse(json.dumps({"is_valid": True}), content_type="application/json")
+    else:
+        # Если данные невалидны, возвращаем статус 200 и {"is_valid": false}
+        return HttpResponse(json.dumps({"is_valid": False}), content_type="application/json")
+
